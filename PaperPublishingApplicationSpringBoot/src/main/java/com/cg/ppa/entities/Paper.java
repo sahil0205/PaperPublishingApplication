@@ -68,11 +68,4 @@ public class Paper {
 		this.price = price;
 		this.newsList = newsList;
 	}
-	@Override
-	public String toString() {
-		return "Paper [paperId=" + paperId + ", publishDate=" + publishDate + ", editor=" + editor + ", price=" + price
-				+ ", newsList=" + newsList + "]";
-	}
-	
-	
 }

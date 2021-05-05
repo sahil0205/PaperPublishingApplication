@@ -74,9 +74,4 @@ public class News {
 		this.category = category;
 		this.newsDescription = newsDescription;
 	}
-	@Override
-	public String toString() {
-		return "News [newsId=" + newsId + ", headline=" + headline + ", reporter=" + reporter + ", location=" + location
-				+ ", category=" + category + ", newsDescription=" + newsDescription + "]";
-	}
 }
