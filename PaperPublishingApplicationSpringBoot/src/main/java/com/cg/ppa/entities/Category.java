@@ -33,6 +33,11 @@ public class Category {
 		this.categoryId = categoryId;
 		this.categoryName = categoryName;
 	}
+	
+	public Category(String categoryName) {
+		super();
+		this.categoryName = categoryName;
+	}
 	@Override
 	public String toString() {
 		return "Category [categoryId=" + categoryId + ", categoryName=" + categoryName + "]";

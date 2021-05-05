@@ -17,11 +17,11 @@ public class News {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int newsId;
 	private String headline;
-	@OneToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+	@OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_id")
 	private User reporter;
 	private String location;
-	@OneToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+	@OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
 	@JoinColumn(name = "category_id")
 	private Category category;
 	private String newsDescription;
