@@ -13,25 +13,24 @@ import com.cg.ppa.repository.ICategoryRepository;
 
 @Service
 @Transactional
-public class CatgeoryService implements ICategoryService{
-	
+public class CatgeoryService implements ICategoryService {
+
 	@Autowired
 	ICategoryRepository repository;
 
 	@Override
 	public Category addCategory(String categoryName) throws CategoryException {
-		if(repository.existsByCategoryName(categoryName))
+		if (repository.existsByCategoryName(categoryName))
 			throw new CategoryException("Category already exists");
 		else {
 			Category category = new Category(categoryName);
 			return repository.save(category);
 		}
-			
 	}
 
 	@Override
 	public void deleteCategory(int categoryId) throws CategoryException {
-		if(repository.existsById(categoryId))
+		if (repository.existsById(categoryId))
 			repository.deleteById(categoryId);
 		else
 			throw new CategoryException("Category doesn't exist");
@@ -39,7 +38,7 @@ public class CatgeoryService implements ICategoryService{
 
 	@Override
 	public Category updateCategory(Category category) throws CategoryException {
-		if(repository.existsById(category.getCategoryId()))
+		if (repository.existsById(category.getCategoryId()))
 			return repository.save(category);
 		else
 			throw new CategoryException("Category doesn't exist");
@@ -48,7 +47,7 @@ public class CatgeoryService implements ICategoryService{
 	@Override
 	public List<Category> viewAllCategories() throws CategoryException {
 		List<Category> categoryList = repository.findAll();
-		if(categoryList.isEmpty())
+		if (categoryList.isEmpty())
 			throw new CategoryException("No Data Found");
 		else
 			return categoryList;
@@ -56,7 +55,7 @@ public class CatgeoryService implements ICategoryService{
 
 	@Override
 	public Category viewCategoryByName(String name) throws CategoryException {
-		if(repository.existsByCategoryName(name))
+		if (repository.existsByCategoryName(name))
 			return repository.findByCategoryName(name);
 		else
 			throw new CategoryException("Category doesn't exist");

@@ -21,11 +21,11 @@ public class Paper {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int paperId;
 	private LocalDate publishDate;
-	@OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	@OneToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_id")
 	private User editor;
 	private int price;
-	@OneToMany(cascade = CascadeType.PERSIST, targetEntity = News.class)
+	@OneToMany(cascade = CascadeType.MERGE, targetEntity = News.class)
 	private List<News> newsList;
 	public int getPaperId() {
 		return paperId;
