@@ -1,5 +1,7 @@
 package com.cg.ppa.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -11,7 +13,6 @@ public interface INewsRepository extends JpaRepository<News, Integer> {
 	
 	public News findByNewsId(int newsId);
 	
-	public News findByLocation(String location);
+	public List<News> findByLocation(String location);
 	
-	public boolean existsByLocation(String location);
 }

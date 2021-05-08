@@ -15,7 +15,7 @@ public interface INewsService {
 	
 	public News updateNews(News news) throws NewsException;
 	
-	public News viewNewsByLocation(String location) throws NewsException;
+	public List<News> viewNewsByLocation(String location) throws NewsException;
 	
 	public List<News> viewAllNews() throws NewsException;
 }

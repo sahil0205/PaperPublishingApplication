@@ -51,11 +51,12 @@ public class NewsService implements INewsService{
 	}
 
 	@Override
-	public News viewNewsByLocation(String location) throws NewsException {
-		if(repository.existsByLocation(location))
-			return repository.findByLocation(location);
+	public List<News> viewNewsByLocation(String location) throws NewsException {
+		List<News> newsList = repository.findByLocation(location);
+		if(newsList.isEmpty())
+			throw new NewsException("No news for this location");
 		else
-			throw new NewsException("No news for given location");
+			return newsList;
 	}
 
 	@Override

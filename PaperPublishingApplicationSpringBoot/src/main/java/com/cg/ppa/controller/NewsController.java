@@ -68,7 +68,7 @@ public class NewsController {
 	@GetMapping("viewnewsbylocation/{location}")
 	public ResponseEntity<Object> viewNewsByLocation(String location){
 		try {
-			News newsData = service.viewNewsByLocation(location);
+			List<News> newsData = service.viewNewsByLocation(location);
 			return new ResponseEntity<Object>(newsData, HttpStatus.OK);		
 		}catch (NewsException e) {
 			return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
