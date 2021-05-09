@@ -13,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.FutureOrPresent;
+import javax.validation.constraints.Min;
 
 @Entity
 @Table(name = "paper_master")
@@ -20,12 +22,15 @@ public class Paper {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int paperId;
+	@FutureOrPresent(message = "Date should be either present date or future date")
 	private LocalDate publishDate;
 	@OneToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_id")
 	private User editor;
+	@Min(value = 2, message="Min price is 2")
 	private int price;
 	@OneToMany(cascade = CascadeType.MERGE, targetEntity = News.class)
+	@JoinColumn(name = "paper_id", referencedColumnName = "paperId")
 	private List<News> newsList;
 	public int getPaperId() {
 		return paperId;
@@ -60,12 +65,11 @@ public class Paper {
 	public Paper() {
 		// TODO Auto-generated constructor stub
 	}
-	public Paper(int paperId, LocalDate publishDate, User editor, int price, List<News> newsList) {
+	public Paper(int paperId, LocalDate publishDate, User editor, int price) {
 		super();
 		this.paperId = paperId;
 		this.publishDate = publishDate;
 		this.editor = editor;
 		this.price = price;
-		this.newsList = newsList;
 	}
 }

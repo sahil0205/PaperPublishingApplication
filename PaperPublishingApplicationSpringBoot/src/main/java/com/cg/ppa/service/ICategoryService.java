@@ -6,7 +6,7 @@ import com.cg.ppa.entities.Category;
 import com.cg.ppa.exception.CategoryException;
 
 public interface ICategoryService {
-	public Category addCategory(String categoryName) throws CategoryException;
+	public Category addCategory(Category category) throws CategoryException;
 	
 	public void deleteCategory(int categoryId) throws CategoryException;
 	
@@ -15,4 +15,6 @@ public interface ICategoryService {
 	public List<Category> viewAllCategories() throws CategoryException;
 	
 	public Category viewCategoryByName(String name) throws CategoryException;
+	
+	public Category viewCategoryById(int categoryId) throws CategoryException;
 }

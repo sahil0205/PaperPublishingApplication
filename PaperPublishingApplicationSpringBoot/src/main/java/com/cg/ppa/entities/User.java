@@ -5,6 +5,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 @Entity
 @Table(name = "user_master")
@@ -12,10 +15,18 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int userId;
+	@NotNull(message = "Name cannot be empty")
 	private String userName;
+	@NotNull(message = "Role cannot be null")
 	private String role;
+	@NotNull(message = "Contact number cannot be empty")
+	@Pattern(regexp = "^(\\+91[\\-\\s]?)?[0]?(91)?[789]\\d{9}$", message = "Enter valid contact number")
 	private String contactNumber;
+	@NotNull(message = "Email Id cannot be empty")
+	@Email(message = "Email Id should be valid")
 	private String emailId;
+	@NotNull(message = "Password should not be empty")
+	@Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&-+])(?=\\\\S+$).{6, 10}$", message="Password should contain 6-10 characters, atleast one digit, uppecase, lower case and special character")
 	private String password;
 	public int getUserId() {
 		return userId;

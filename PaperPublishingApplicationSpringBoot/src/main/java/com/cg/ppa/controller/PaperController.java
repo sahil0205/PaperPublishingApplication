@@ -3,6 +3,8 @@ package com.cg.ppa.controller;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,13 +28,18 @@ public class PaperController {
 	@Autowired
 	IPaperService service;
 	
+	Logger logger = LoggerFactory.getLogger(PaperController.class);
+
+	
 	@PostMapping("/createpaper")
 	public ResponseEntity<Object> createPaper(@RequestBody Paper paper){
 		try {
 			Paper paperData = service.createPaper(paper);
+			logger.info("Paper with id: "+paperData.getPaperId()+" created");
 			return new ResponseEntity<Object>(paperData, HttpStatus.OK);
 		}
 		catch (PaperException e) {
+			logger.error(e.getMessage());
 			return new ResponseEntity<Object>(e.getMessage(), HttpStatus.UNPROCESSABLE_ENTITY);
 		}
 	}
@@ -41,9 +48,11 @@ public class PaperController {
 	public ResponseEntity<Object> updatePaper(@RequestBody Paper paper){
 		try {
 			Paper paperData = service.updatePaper(paper);
+			logger.info("Paper with id: "+paperData.getPaperId()+" updated");
 			return new ResponseEntity<Object>(paperData, HttpStatus.OK);
 		}
 		catch(PaperException e) {
+			logger.error(e.getMessage());
 			return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 	}
@@ -52,9 +61,11 @@ public class PaperController {
 	public ResponseEntity<Object> deletePaper(@PathVariable int paperId){
 		try {
 			service.deletePaper(paperId);
+			logger.info("Paper with id: "+paperId+" deleted");
 			return new ResponseEntity<Object>("Paper Deleted", HttpStatus.OK);
 		}
 		catch(PaperException e) {
+			logger.error(e.getMessage());
 			return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 	}
@@ -63,9 +74,11 @@ public class PaperController {
 	public ResponseEntity<Object> viewPaperByPublishDate(@PathVariable LocalDate publishDate){
 		try {
 			Paper paperData = service.viewPaperByPublishDate(publishDate);
+			logger.info("Accessing paper for date: "+publishDate);
 			return new ResponseEntity<Object>(paperData, HttpStatus.OK);
 		}
 		catch(PaperException e) {
+			logger.error(e.getMessage());
 			return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 	}
@@ -74,9 +87,11 @@ public class PaperController {
 	public ResponseEntity<Object> viewAllPaper(){
 		try {
 			List<Paper> paperList = service.viewAllPaper();
+			logger.info("Viewing all paper");
 			return new ResponseEntity<Object>(paperList, HttpStatus.OK);
 		}
 		catch(PaperException e) {
+			logger.error(e.getMessage());
 			return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 	}
@@ -85,9 +100,11 @@ public class PaperController {
 	public ResponseEntity<Object> viewPaperById(@PathVariable int paperId){
 		try {
 			Paper paperData = service.viewPaperById(paperId);
+			logger.info("Accessing paper by id: "+paperId);
 			return new ResponseEntity<Object>(paperData, HttpStatus.OK);
 		}
 		catch(PaperException e) {
+			logger.error(e.getMessage());
 			return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 	}

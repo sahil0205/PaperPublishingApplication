@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "news_master")
@@ -16,14 +18,20 @@ public class News {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int newsId;
+	@NotNull
+	@Size(min=10, message="Headline should be minimum 10 characters long")
 	private String headline;
 	@OneToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_id")
 	private User reporter;
+	@NotNull
+	@Size(min=2, message="Location name should be greater than 2 characters")
 	private String location;
 	@OneToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
 	@JoinColumn(name = "category_id")
 	private Category category;
+	@NotNull
+	@Size(min=20, message = "News Description should be more than 20 characters")
 	private String newsDescription;
 	public int getNewsId() {
 		return newsId;

@@ -5,6 +5,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "category_master")
@@ -12,6 +14,8 @@ public class Category {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int categoryId;
+	@NotNull
+	@Size(min=3, message="Category name must be more than 3 characters")
 	private String categoryName;
 	public int getCategoryId() {
 		return categoryId;

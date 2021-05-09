@@ -19,11 +19,10 @@ public class CatgeoryService implements ICategoryService {
 	ICategoryRepository repository;
 
 	@Override
-	public Category addCategory(String categoryName) throws CategoryException {
-		if (repository.existsByCategoryName(categoryName))
+	public Category addCategory(Category category) throws CategoryException {
+		if (repository.existsByCategoryName(category.getCategoryName()))
 			throw new CategoryException("Category already exists");
 		else {
-			Category category = new Category(categoryName);
 			return repository.save(category);
 		}
 	}
@@ -59,6 +58,14 @@ public class CatgeoryService implements ICategoryService {
 			return repository.findByCategoryName(name);
 		else
 			throw new CategoryException("Category doesn't exist");
+	}
+
+	@Override
+	public Category viewCategoryById(int categoryId) throws CategoryException {
+		if(repository.existsById(categoryId))
+			return repository.findByCategoryId(categoryId);
+		else
+			throw new CategoryException("No category found");
 	}
 
 }
