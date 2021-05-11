@@ -13,14 +13,14 @@ import com.cg.ppa.repository.INewsRepository;
 
 @Service
 @Transactional
-public class NewsService implements INewsService{
+public class NewsService implements INewsService {
 
 	@Autowired
 	INewsRepository repository;
-	
+
 	@Override
 	public News addNews(News news) throws NewsException {
-		if(repository.existsByNewsId(news.getNewsId()))
+		if (repository.existsByNewsId(news.getNewsId()))
 			throw new NewsException("News already exists");
 		else
 			return repository.save(news);
@@ -28,7 +28,7 @@ public class NewsService implements INewsService{
 
 	@Override
 	public News viewNewsById(int newsId) throws NewsException {
-		if(repository.existsByNewsId(newsId))
+		if (repository.existsByNewsId(newsId))
 			return repository.findByNewsId(newsId);
 		else
 			throw new NewsException("News does not exist");
@@ -36,7 +36,7 @@ public class NewsService implements INewsService{
 
 	@Override
 	public void deleteNews(int newsId) throws NewsException {
-		if(repository.existsByNewsId(newsId))
+		if (repository.existsByNewsId(newsId))
 			repository.deleteById(newsId);
 		else
 			throw new NewsException("News does not exist");
@@ -44,7 +44,7 @@ public class NewsService implements INewsService{
 
 	@Override
 	public News updateNews(News news) throws NewsException {
-		if(repository.existsByNewsId(news.getNewsId()))
+		if (repository.existsByNewsId(news.getNewsId()))
 			return repository.save(news);
 		else
 			throw new NewsException("News not found");
@@ -53,7 +53,7 @@ public class NewsService implements INewsService{
 	@Override
 	public List<News> viewNewsByLocation(String location) throws NewsException {
 		List<News> newsList = repository.findByLocation(location);
-		if(newsList.isEmpty())
+		if (newsList.isEmpty())
 			throw new NewsException("No news for this location");
 		else
 			return newsList;
@@ -62,7 +62,7 @@ public class NewsService implements INewsService{
 	@Override
 	public List<News> viewAllNews() throws NewsException {
 		List<News> newsList = repository.findAll();
-		if(newsList.isEmpty())
+		if (newsList.isEmpty())
 			throw new NewsException("No data found");
 		else
 			return newsList;

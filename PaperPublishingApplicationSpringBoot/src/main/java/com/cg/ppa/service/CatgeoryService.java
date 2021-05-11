@@ -62,7 +62,7 @@ public class CatgeoryService implements ICategoryService {
 
 	@Override
 	public Category viewCategoryById(int categoryId) throws CategoryException {
-		if(repository.existsById(categoryId))
+		if (repository.existsById(categoryId))
 			return repository.findByCategoryId(categoryId);
 		else
 			throw new CategoryException("No category found");

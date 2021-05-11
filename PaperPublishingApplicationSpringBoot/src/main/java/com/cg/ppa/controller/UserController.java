@@ -2,6 +2,8 @@ package com.cg.ppa.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +29,7 @@ public class UserController {
 	ILoginService service;
 
 	@PostMapping("/adduser")
-	public ResponseEntity<Object> addUser(@RequestBody User user) {
+	public ResponseEntity<Object> addUser(@Valid @RequestBody User user) {
 		try {
 			User userData = service.addUser(user);
 			return new ResponseEntity<Object>(userData, HttpStatus.OK);
@@ -37,7 +39,7 @@ public class UserController {
 	}
 
 	@PutMapping("/updateuser")
-	public ResponseEntity<Object> updateuser(@RequestBody User user) {
+	public ResponseEntity<Object> updateuser(@Valid @RequestBody User user) {
 		try {
 			User userData = service.updateUser(user);
 			return new ResponseEntity<Object>(userData, HttpStatus.OK);

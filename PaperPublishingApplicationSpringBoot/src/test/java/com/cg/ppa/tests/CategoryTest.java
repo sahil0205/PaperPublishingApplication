@@ -1,4 +1,4 @@
-package com.cg.ppa;
+package com.cg.ppa.tests;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.times;
@@ -33,21 +33,21 @@ public class CategoryTest {
 						.collect(Collectors.toList()));
 		assertEquals(3, service.viewAllCategories().size());
 	}
-	
+
 	@Test
 	public void addCategory() {
 		Category category = new Category(1, "Sports");
 		when(repository.save(category)).thenReturn(category);
 		assertEquals("Sports", service.addCategory(category).getCategoryName());
 	}
-	
+
 	@Test
 	public void deleteCategory() {
 		when(repository.existsById(1)).thenReturn(true);
 		service.deleteCategory(1);
-		verify(repository,times(1)).deleteById(1);
+		verify(repository, times(1)).deleteById(1);
 	}
-	
+
 	@Test
 	public void updateCategory() {
 		Category category = new Category(1, "Sports");
@@ -56,7 +56,7 @@ public class CategoryTest {
 		assertEquals(1, service.updateCategory(category).getCategoryId());
 		assertEquals("Sports", service.updateCategory(category).getCategoryName());
 	}
-	
+
 	@Test
 	public void viewCategoryByName() {
 		Category category = new Category(1, "Sports");
@@ -64,7 +64,7 @@ public class CategoryTest {
 		when(repository.findByCategoryName("Sports")).thenReturn(category);
 		assertEquals("Sports", service.viewCategoryByName("Sports").getCategoryName());
 	}
-	
+
 	@Test
 	public void viewCategoryById() {
 		Category category = new Category(1, "Sports");

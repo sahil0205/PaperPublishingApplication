@@ -1,4 +1,4 @@
-package com.cg.ppa;
+package com.cg.ppa.tests;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.times;

@@ -14,14 +14,14 @@ import com.cg.ppa.repository.IPaperRepository;
 
 @Service
 @Transactional
-public class PaperService implements IPaperService{
+public class PaperService implements IPaperService {
 
 	@Autowired
 	IPaperRepository repository;
-	
+
 	@Override
 	public Paper createPaper(Paper paper) throws PaperException {
-		if(!(repository.existsById(paper.getPaperId())))
+		if (!(repository.existsById(paper.getPaperId())))
 			return repository.save(paper);
 		else
 			throw new PaperException("Paper Id already exists cannot publish paper");
@@ -29,7 +29,7 @@ public class PaperService implements IPaperService{
 
 	@Override
 	public Paper updatePaper(Paper paper) throws PaperException {
-		if(repository.existsById(paper.getPaperId()))
+		if (repository.existsById(paper.getPaperId()))
 			return repository.save(paper);
 		else
 			throw new PaperException("Paper does not exist");
@@ -37,7 +37,7 @@ public class PaperService implements IPaperService{
 
 	@Override
 	public void deletePaper(int paperId) throws PaperException {
-		if(repository.existsById(paperId))
+		if (repository.existsById(paperId))
 			repository.deleteById(paperId);
 		else
 			throw new PaperException("Paper does not exist");
@@ -46,7 +46,7 @@ public class PaperService implements IPaperService{
 	@Override
 	public Paper viewPaperByPublishDate(LocalDate publishDate) throws PaperException {
 		Paper paperData = repository.findByPublishDate(publishDate);
-		if(paperData==null)
+		if (paperData == null)
 			throw new PaperException("Paper does not exist");
 		else
 			return paperData;
@@ -55,7 +55,7 @@ public class PaperService implements IPaperService{
 	@Override
 	public List<Paper> viewAllPaper() throws PaperException {
 		List<Paper> paperList = repository.findAll();
-		if(paperList.isEmpty())
+		if (paperList.isEmpty())
 			throw new PaperException("No data found");
 		else
 			return paperList;
@@ -63,8 +63,8 @@ public class PaperService implements IPaperService{
 
 	@Override
 	public Paper viewPaperById(int paperId) throws PaperException {
-		if(repository.existsById(paperId))
-			return repository.findById(paperId).get();
+		if (repository.existsById(paperId))
+			return repository.findByPaperId(paperId);
 		else
 			throw new PaperException("Paper does not exist");
 	}

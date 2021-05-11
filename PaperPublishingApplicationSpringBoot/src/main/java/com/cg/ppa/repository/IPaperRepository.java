@@ -10,7 +10,9 @@ import com.cg.ppa.entities.News;
 import com.cg.ppa.entities.Paper;
 
 @Repository
-public interface IPaperRepository extends JpaRepository<Paper, Integer>{
+public interface IPaperRepository extends JpaRepository<Paper, Integer> {
 	public Paper findByPublishDate(LocalDate publishDate);
-	
+
+	public Paper findByPaperId(int paperId);
+
 }

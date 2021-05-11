@@ -8,8 +8,8 @@ import com.cg.ppa.entities.Category;
 @Repository
 public interface ICategoryRepository extends JpaRepository<Category, Integer> {
 	public boolean existsByCategoryName(String categoryName);
-	
+
 	public Category findByCategoryName(String categoryName);
-	
+
 	public Category findByCategoryId(int categoryId);
 }
