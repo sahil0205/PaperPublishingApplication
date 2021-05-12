@@ -2,6 +2,7 @@ package com.cg.ppa.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,9 +70,9 @@ public class UserController {
 	}
 
 	@PutMapping("/loginuser")
-	public ResponseEntity<Object> loginUser(@RequestParam String email, @RequestParam String password) {
+	public ResponseEntity<Object> loginUser(@RequestParam String email, @RequestParam String password, HttpSession session) {
 		try {
-			User userData = service.loginUser(email, password);
+			User userData = service.loginUser(email, password, session);
 			return new ResponseEntity<Object>(userData, HttpStatus.OK);
 		} catch (UserException e) {
 			return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
@@ -95,6 +96,16 @@ public class UserController {
 			return new ResponseEntity<Object>(userData, HttpStatus.OK);
 		} catch (UserException e) {
 			return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	@GetMapping("/logout")
+	public ResponseEntity<Object> logoutUser(HttpSession session){
+		try {
+			service.logoutUser(session);
+			return new ResponseEntity<Object>("Logout succesfull", HttpStatus.OK);
+		}catch (Exception e) {
+			return new ResponseEntity<Object>("Logout unsuccesfull", HttpStatus.BAD_REQUEST);
 		}
 	}
 }

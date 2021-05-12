@@ -2,6 +2,7 @@ package com.cg.ppa.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,9 +47,10 @@ public class LoginService implements ILoginService {
 	}
 
 	@Override
-	public User loginUser(String email, String password) throws UserException {
+	public User loginUser(String email, String password, HttpSession session) throws UserException {
 		if (repository.existsByEmailIdAndPassword(email, password)) {
 			User userData = repository.findByEmailIdAndPassword(email, password);
+			session.setAttribute("email", email);
 			return userData;
 		} else
 			throw new UserException("Invalid Credentials");
@@ -79,6 +81,11 @@ public class LoginService implements ILoginService {
 			throw new UserException("No Users present");
 		else
 			return userList;
+	}
+
+	@Override
+	public void logoutUser(HttpSession session) {
+		session.removeAttribute("email");
 	}
 
 }

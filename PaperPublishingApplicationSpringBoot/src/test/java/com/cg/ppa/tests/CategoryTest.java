@@ -72,4 +72,5 @@ public class CategoryTest {
 		when(repository.findByCategoryId(1)).thenReturn(category);
 		assertEquals("Sports", service.viewCategoryById(1).getCategoryName());
 	}
+	
 }
