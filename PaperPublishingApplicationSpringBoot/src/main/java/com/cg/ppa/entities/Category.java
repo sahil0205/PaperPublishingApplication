@@ -48,4 +48,11 @@ public class Category {
 		super();
 		this.categoryName = categoryName;
 	}
+
+	@Override
+	public String toString() {
+		return "Category [categoryId=" + categoryId + ", categoryName=" + categoryName + "]";
+	}
+	
+	
 }

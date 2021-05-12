@@ -59,15 +59,6 @@ public class UserTest {
 	}
 
 	@Test
-	public void loginUser() {
-		User user = new User(1, "Mock User 1", "Reporter", "+91 7709161413", "mockuser1@gmail.com", "User1@12345");
-		when(repository.existsByEmailIdAndPassword(user.getEmailId(), user.getPassword())).thenReturn(true);
-		when(repository.findByEmailIdAndPassword(user.getEmailId(), user.getPassword())).thenReturn(user);
-		assertEquals(1, service.loginUser(user.getEmailId(), user.getPassword()).getUserId());
-		assertEquals("Mock User 1", service.loginUser(user.getEmailId(), user.getPassword()).getUserName());
-	}
-
-	@Test
 	public void viewByName() {
 		User user = new User(1, "Mock User 1", "Reporter", "+91 7709161413", "mockuser1@gmail.com", "User1@12345");
 		when(repository.existsByUserName(user.getUserName())).thenReturn(true);
