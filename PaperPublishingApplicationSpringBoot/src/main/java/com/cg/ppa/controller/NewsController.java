@@ -80,7 +80,7 @@ public class NewsController {
 	}
 
 	@GetMapping("viewnewsbylocation/{location}")
-	public ResponseEntity<Object> viewNewsByLocation(String location) {
+	public ResponseEntity<Object> viewNewsByLocation(@PathVariable String location) {
 		try {
 			List<News> newsData = service.viewNewsByLocation(location);
 			logger.info("Viewing news by location: " + location);
