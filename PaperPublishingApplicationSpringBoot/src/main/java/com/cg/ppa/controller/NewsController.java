@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,15 +20,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cg.ppa.entities.News;
+import com.cg.ppa.entities.User;
 import com.cg.ppa.exception.NewsException;
+import com.cg.ppa.repository.INewsRepository;
 import com.cg.ppa.service.INewsService;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/ppa/news")
 public class NewsController {
 
 	@Autowired
 	INewsService service;
+	
+	@Autowired
+	INewsRepository repository;
 
 	Logger logger = LoggerFactory.getLogger(NewsController.class);
 
@@ -96,6 +103,18 @@ public class NewsController {
 		try {
 			List<News> newsList = service.viewAllNews();
 			logger.info("Viewing all news");
+			return new ResponseEntity<Object>(newsList, HttpStatus.OK);
+		} catch (NewsException e) {
+			logger.error(e.getMessage());
+			return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	@GetMapping("/viewnewsbyreporter/{userId}")
+	public ResponseEntity<Object> viewNewsByReporter(@PathVariable int userId) {
+		try {
+			List<News> newsList = service.viewByReporter(userId);
+			logger.info("Viewing all news by reporter");
 			return new ResponseEntity<Object>(newsList, HttpStatus.OK);
 		} catch (NewsException e) {
 			logger.error(e.getMessage());

@@ -3,6 +3,7 @@ package com.cg.ppa.service;
 import java.time.LocalDate;
 import java.util.List;
 import com.cg.ppa.entities.Paper;
+import com.cg.ppa.entities.User;
 import com.cg.ppa.exception.PaperException;
 
 public interface IPaperService {
@@ -17,4 +18,6 @@ public interface IPaperService {
 	public List<Paper> viewAllPaper() throws PaperException;
 
 	public Paper viewPaperById(int paperId) throws PaperException;
+	
+	public List<Paper> viewPaperByEditor(int editorIds);
 }

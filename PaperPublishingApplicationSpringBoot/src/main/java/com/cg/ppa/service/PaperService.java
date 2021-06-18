@@ -9,8 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cg.ppa.entities.Paper;
+import com.cg.ppa.entities.User;
 import com.cg.ppa.exception.PaperException;
 import com.cg.ppa.repository.IPaperRepository;
+import com.cg.ppa.repository.IUserRepository;
 
 @Service
 @Transactional
@@ -18,6 +20,9 @@ public class PaperService implements IPaperService {
 
 	@Autowired
 	IPaperRepository repository;
+	
+	@Autowired
+	IUserRepository repo;
 
 	@Override
 	public Paper createPaper(Paper paper) throws PaperException {
@@ -67,6 +72,14 @@ public class PaperService implements IPaperService {
 			return repository.findByPaperId(paperId);
 		else
 			throw new PaperException("Paper does not exist");
+	}
+
+	@Override
+	public List<Paper> viewPaperByEditor(int editorId) {
+		User editor = repo.findByUserId(editorId);
+		List<Paper> paperList = repository.findByEditor(editor);
+
+		return paperList;
 	}
 
 }

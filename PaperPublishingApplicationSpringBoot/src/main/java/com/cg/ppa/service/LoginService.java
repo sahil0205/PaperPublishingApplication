@@ -88,4 +88,12 @@ public class LoginService implements ILoginService {
 		session.removeAttribute("email");
 	}
 
+	@Override
+	public User viewUserByEmailId(String emailId) throws UserException {
+		if(repository.existsByEmailId(emailId))
+			return repository.findByEmailId(emailId);
+		else
+			throw new UserException("No user found by given email id");
+	}
+
 }

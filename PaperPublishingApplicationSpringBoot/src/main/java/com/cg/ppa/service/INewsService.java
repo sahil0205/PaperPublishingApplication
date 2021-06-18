@@ -3,6 +3,7 @@ package com.cg.ppa.service;
 import java.util.List;
 
 import com.cg.ppa.entities.News;
+import com.cg.ppa.entities.User;
 import com.cg.ppa.exception.NewsException;
 
 public interface INewsService {
@@ -18,4 +19,6 @@ public interface INewsService {
 	public List<News> viewNewsByLocation(String location) throws NewsException;
 
 	public List<News> viewAllNews() throws NewsException;
+	
+	public List<News> viewByReporter(int userid) throws NewsException;
 }
