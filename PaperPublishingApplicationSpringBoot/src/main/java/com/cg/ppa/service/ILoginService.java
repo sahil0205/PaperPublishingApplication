@@ -23,4 +23,6 @@ public interface ILoginService {
 	List<User> viewAllUser() throws UserException;
 	
 	void logoutUser(HttpSession session);
+	
+	User viewUserByEmailId(String emailId) throws UserException;
 }

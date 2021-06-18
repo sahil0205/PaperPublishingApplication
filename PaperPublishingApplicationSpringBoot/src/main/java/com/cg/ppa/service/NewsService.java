@@ -8,8 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cg.ppa.entities.News;
+import com.cg.ppa.entities.User;
 import com.cg.ppa.exception.NewsException;
 import com.cg.ppa.repository.INewsRepository;
+import com.cg.ppa.repository.IUserRepository;
 
 @Service
 @Transactional
@@ -17,6 +19,9 @@ public class NewsService implements INewsService {
 
 	@Autowired
 	INewsRepository repository;
+	
+	@Autowired
+	IUserRepository repo;
 
 	@Override
 	public News addNews(News news) throws NewsException {
@@ -66,6 +71,13 @@ public class NewsService implements INewsService {
 			throw new NewsException("No data found");
 		else
 			return newsList;
+	}
+
+	@Override
+	public List<News> viewByReporter(int userId) throws NewsException {
+		User user = repo.findByUserId(userId);
+		List<News> newsList = repository.findByReporter(user);
+		return newsList;
 	}
 
 }

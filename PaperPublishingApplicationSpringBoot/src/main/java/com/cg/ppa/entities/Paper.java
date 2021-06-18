@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -16,21 +17,26 @@ import javax.persistence.Table;
 import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.Min;
 
+import org.hibernate.annotations.Cascade;
+
 @Entity
-@Table(name = "paper_master")
+@Table(name = "paper")
 public class Paper {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "paper_id")
 	private int paperId;
 	@FutureOrPresent(message = "Date should be either present date or future date")
+	@Column(name = "publish_date")
 	private LocalDate publishDate;
 	@OneToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
-	@JoinColumn(name = "user_id")
+	@JoinColumn(name = "editor_id")
 	private User editor;
 	@Min(value = 2, message = "Min price is 2")
+	@Column(name = "paper_price")
 	private int price;
-	@OneToMany(cascade = CascadeType.MERGE, targetEntity = News.class)
-	@JoinColumn(name = "paper_id", referencedColumnName = "paperId")
+	@OneToMany(cascade = CascadeType.MERGE, targetEntity = News.class, fetch = FetchType.EAGER)
+	@JoinColumn(name = "paper_id", referencedColumnName = "paper_id")
 	private List<News> newsList;
 
 	public int getPaperId() {

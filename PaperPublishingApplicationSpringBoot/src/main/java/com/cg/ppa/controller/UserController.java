@@ -5,9 +5,12 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,12 +25,15 @@ import com.cg.ppa.entities.User;
 import com.cg.ppa.exception.UserException;
 import com.cg.ppa.service.ILoginService;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/ppa/user")
 public class UserController {
 
 	@Autowired
 	ILoginService service;
+	
+	Logger logger = LoggerFactory.getLogger(UserController.class);
 
 	@PostMapping("/adduser")
 	public ResponseEntity<Object> addUser(@Valid @RequestBody User user) {
@@ -103,6 +109,7 @@ public class UserController {
 	public ResponseEntity<Object> logoutUser(HttpSession session){
 		try {
 			service.logoutUser(session);
+			logger.info("Inside signout");
 			return new ResponseEntity<Object>("Logout succesfull", HttpStatus.OK);
 		}catch (Exception e) {
 			return new ResponseEntity<Object>("Logout unsuccesfull", HttpStatus.BAD_REQUEST);

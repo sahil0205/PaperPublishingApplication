@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,6 +24,7 @@ import com.cg.ppa.entities.Paper;
 import com.cg.ppa.exception.PaperException;
 import com.cg.ppa.service.IPaperService;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/ppa/paper")
 public class PaperController {
@@ -101,6 +103,18 @@ public class PaperController {
 		} catch (PaperException e) {
 			logger.error(e.getMessage());
 			return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	@GetMapping("/viewpaperbyeditor/{editorId}")
+	public ResponseEntity<Object> viewPaperByEditor(@PathVariable int editorId){
+		try {
+			List<Paper> paperList = service.viewPaperByEditor(editorId);
+			return new ResponseEntity<Object>(paperList, HttpStatus.OK);
+		}catch (PaperException e) {
+			// TODO: handle exception
+			return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
+
 		}
 	}
 }
